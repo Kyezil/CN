@@ -25,6 +25,7 @@ function bisection(a0, b0, niter = 10)
     else b = mig;
     endif
   endfor
+  printf("Solution %f\n", (a+b)/2);
 endfunction
 
 function plot_f()
