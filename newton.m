@@ -27,7 +27,7 @@ endfunction
 function plot_f()
   % plot function f
   x = linspace(0,5,100);
-  y = evaluate_f(x);
+  y = eval_f(x);
   plot(x, y);
 endfunction
 
