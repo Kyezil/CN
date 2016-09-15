@@ -1,4 +1,4 @@
-function FX = evaluate_f(x)
+function FX = eval_f(x)
     % evalua una funcio determinada
     % [IN] x del domini de f
     % [OUT] f(x)
@@ -6,21 +6,29 @@ function FX = evaluate_f(x)
     FX = polyval(p, x);
 endfunction
 
-function bisection(a0, b0, niter = 10)
+function errors = bisection(a0, b0, niter = 10, tol = 1e-16)
   % usa el metode de la biseccio per trobar zeros en l'interval [a0,b0]
   % [IN] (a0,b0) interval de cerca inicial
-  sign_left = evaluate_f(a0) >= 0;
-  if (sign_left && evaluate_f(b0) >= 0)
+  sign_left = eval_f(a0) >= 0;
+  if (sign_left && eval_f(b0) >= 0)
     disp("interval no valid");
     return;
   endif
 
   a = a0;
   b = b0;
+  last = 0;
+  errors = [];
   for k = 1:niter
-    printf("Iteration %d, interval [%f, %f]\n", k, a, b);
     mig = a + (b-a)/2;
-    sign_mig = evaluate_f(mig) >= 0;
+	r = abs((last - mig)/mig);
+	errors = [errors log(r)];
+	printf("Iteration %d, interval [%f, %f], r = %f\n", k, a, b);
+	if (abs(last - mig) < tol)
+	  break;
+	endif
+	last = mig;
+    sign_mig = eval_f(mig) >= 0;
     if (sign_mig == sign_left) a = mig;
     else b = mig;
     endif
@@ -31,7 +39,7 @@ endfunction
 function plot_f()
   % plot function f
   x = linspace(0,5,100);
-  y = evaluate_f(x);
+  y = eval_f(x);
   plot(x, y);
 endfunction
 
