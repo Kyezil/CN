@@ -18,7 +18,7 @@ function newton(x, niter = 10)
   % usa el metode de newton per trobar un zero usant x d'aprox inicial
   % [IN] x aproximacio inicial de la solucio
   for k = 1:niter
-    printf("Iteration %d, solució %f\n", x);
+    printf("Iteration %d, solució %f\n", k, x);
     x = x - eval_f(x)/eval_df(x);
   endfor
   printf("Solution %f\n", x);
