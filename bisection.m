@@ -6,34 +6,35 @@ function FX = eval_f(x)
     FX = polyval(p, x);
 endfunction
 
-function errors = bisection(a0, b0, niter = 10, tol = 1e-16)
+function errors = bisection(start, niter = 10, tol = 1e-15)
   % usa el metode de la biseccio per trobar zeros en l'interval [a0,b0]
-  % [IN] (a0,b0) interval de cerca inicial
-  sign_left = eval_f(a0) >= 0;
-  if (sign_left && eval_f(b0) >= 0)
-    disp("interval no valid");
-    return;
-  endif
-
-  a = a0;
-  b = b0;
-  last = 0;
+  % [IN] start = (x0,a) interval de cerca inicial
+  x0 = start(1); a = start(2);
+  s0 = eval_f(x0) >= 0;
   errors = [];
+
   for k = 1:niter
-    mig = a + (b-a)/2;
-	r = abs((last - mig)/mig);
-	errors = [errors log(r)];
-	printf("Iteration %d, interval [%f, %f], r = %f\n", k, a, b);
-	if (abs(last - mig) < tol)
-	  break;
-	endif
-	last = mig;
-    sign_mig = eval_f(mig) >= 0;
-    if (sign_mig == sign_left) a = mig;
-    else b = mig;
+    if (abs(x0 - a) < tol)
+      break;
     endif
+
+    if (s0 && eval_f(a) >= 0)
+      disp("error: interval no valid");
+      return;
+    endif
+
+    x1 = x0 + (a - x0)/2;
+    r = abs(1 - x0/x1);
+    errors = [errors r];
+    printf("It %d: interval [%f, %f], r = %e\n", k, x0, a, r);
+
+    s1 = eval_f(x1) >= 0;
+    if (s1 != s0)
+      a = x0;
+    endif
+    x0 = x1; s0 = s1;
   endfor
-  printf("Solution %f\n", (a+b)/2);
+  printf("Solution %f\n", x0);
 endfunction
 
 function plot_f()
