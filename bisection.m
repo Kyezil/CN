@@ -42,4 +42,3 @@ function plot_f()
   y = eval_f(x);
   plot(x, y);
 endfunction
-
