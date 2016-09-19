@@ -3,7 +3,7 @@ function errors = newton(x0, niter = 10, tol = 1e-16)
   % [IN] x0 aproximacio inicial de la solucio
   errors = [];
   for k = 1:niter
-  dx = 1; % todo
+  dx = eval_df(x0); % todo
   x1 = x0 - eval_f(x0)/dx;
   r = abs ((x0 - x1)/x1);
   errors = [ errors r ];
