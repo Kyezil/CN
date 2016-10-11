@@ -1,5 +1,5 @@
 function [errors, sols] = broyden(x0, S0, fname, niter = 10, tol = 1e-15)
-  % usa el metode de newton raphson per resoldre un sistema eq no lineal amb aprox inicial
+  % usa el metode de broyden per resoldre un sistema eq no lineal amb aprox inicial
   % [IN]  x0 aproximacio inicial de la solucio
   % [IN]  S0 aprox inicial de la jacobiana
   % [IN]  fname nom de la funcio

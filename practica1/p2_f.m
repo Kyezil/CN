@@ -3,7 +3,7 @@ function FT = f(t, k = 2)
   % [IN] t del domini de f
   % [OUT] f(t)
   FT = [ k*cos(t(1))*(8*sin(t(1)) + 3*sin(t(2))) - 9*sin(t(1)),
-         k*cos(t(1))*(3*sin(t(1)) + 2*sin(t(2))) - 3*sin(t(2))];
+         k*cos(t(2))*(3*sin(t(1)) + 2*sin(t(2))) - 3*sin(t(2))];
          
 endfunction
 
