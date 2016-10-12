@@ -1,12 +1,12 @@
-function [errors, sols] = bisection(start, fname, niter = 10, tol = 1e-15)
+function [errors, sols] = bisection(start, f, niter = 10, tol = 1e-15, silent = false)
   % usa el metode de la biseccio per trobar zeros en un interval
   % [IN] start  interval inicial de cerca, de R2
-  % [IN] fname  funcio que evalua f
+  % [IN] f		  funcio que evalua f
   % [IN] niter  nombre maxim d'iteracions
   % [IN] tol    tolerancia sobre l'error relatiu
   x0 = start(1); a = start(2);
-  s0 = feval(fname, x0) >= 0;
-  sA = feval(fname, a) >= 0;
+  s0 = f(x0) >= 0;
+  sA = f(a) >= 0;
   errors = []; sols = [];
   for k = 1:niter
     if (abs((x0 - a)/x0) < tol)
@@ -28,14 +28,18 @@ function [errors, sols] = bisection(start, fname, niter = 10, tol = 1e-15)
     errors = [ errors r ];
     sols = [ sols x1 ];
   
-    printf("IT%2d > [%f, %f]\tr = %e\n", k, x0, a, r);
+  	if !silent
+	 		 printf("IT%2d > [%f, %f]\tr = %e\n", k, x0, a, r);
+	 	endif
 
-    s1 = feval(fname, x1) >= 0;
+    s1 = f(x1) >= 0;
     if (s1 == s0)
       x0 = x1; s0 = s1;
     else
       a = x1; sA = s1;
     endif
   endfor
-  printf("Solution %.16f\n", x0);
+  if !silent
+	  printf("Solution %.16f\n", x0);
+	endif
 endfunction
