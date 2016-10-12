@@ -2,14 +2,17 @@
 source('p2_f.m');
 
 theta0 = [1,1]';
-
+format long
 % resol amb Newton per k = 2
 disp('Resolució del sistema amb Newton, aprox inicial [1,1]');
-errs = newton_raphson(theta0, @(t) f(t, 2), @(t) df(t, 2), 100, 1e-15, true);
-
+[errs, sols] = newton_raphson(theta0, @(t) f(t, 2), @(t) df(t, 2), 100, 1e-15, true);
+disp('Solució Newton:');
+disp(sols(:, end));
 % resol amb Broyden per k = 2
 disp('Resolució del sistema amb Broyden, aprox inicial [1,1] i S0 = jacobiana([1,1])');
-errs2 = broyden(theta0, df(theta0, 2), @(t) f(t, 2), 100, 1e-15, true);
+[errs2 sols2] = broyden(theta0, df(theta0, 2), @(t) f(t, 2), 100, 1e-15, true);
+disp('Solució Broyden:');
+disp(sols2(:, end));
 
 plot(1:length(errs), log(errs), 1:length(errs2), log(errs2));
 title('Convergència dels mètodes');
