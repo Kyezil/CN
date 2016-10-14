@@ -1,8 +1,12 @@
 function d2S = calculaCurvaturesSplineNatural(x,y)
 %% calcula curvatura spline natural pels punts y = f(x)
-	n = length(x);
-	i = 2:n-2;
-	h = [ (x(2)-x(1)) (x(i+1)-x(i)) (x(end)-x(end-1))];
-	i = 3:n-2;
-	v = [ (2*(h(1) - h(2))) (2*(h(i-1) - h(i))) (2*(h(end-1) - h(end)))];
+    n = length(x);
+    i = 1:n-1;
+    h = [ x(i+1)-x(i) ];
+    b = [ y(i+1)-y(i) ] ./ h;
+    i = 2:n-1;
+    v = 2 .* [ h(i-1) - h(i) ];
+    u = 6 .* [ b(i) - b(i-1) ];
+    z = [0 solveTridiagonalSystem(h,v,h,u) 0];
+    
 end
