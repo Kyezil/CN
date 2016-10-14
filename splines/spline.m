@@ -5,8 +5,11 @@ function d2S = calculaCurvaturesSplineNatural(x,y)
     h = [ x(i+1)-x(i) ];
     b = [ y(i+1)-y(i) ] ./ h;
     i = 2:n-1;
-    v = 2 .* [ h(i-1) - h(i) ];
+    v = 2 .* [ h(i-1) + h(i) ];
     u = 6 .* [ b(i) - b(i-1) ];
-    z = [0 solveTridiagonalSystem(h,v,h,u) 0];
-    
+    disp(h(2:end));
+    disp(v);
+    disp(h(2:end));
+    disp(u);
+    z = [0 solveTridiag(h,v,h,u) 0];
 end
