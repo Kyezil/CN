@@ -7,9 +7,5 @@ function d2S = calculaCurvaturesSplineNatural(x,y)
     i = 2:n-1;
     v = 2 .* [ h(i-1) + h(i) ];
     u = 6 .* [ b(i) - b(i-1) ];
-    disp(h(2:end));
-    disp(v);
-    disp(h(2:end));
-    disp(u);
-    z = [0 solveTridiag(h,v,h,u) 0];
+    d2S = [0 solveTridiag(h,v,h,u) 0];
 end
