@@ -52,3 +52,31 @@ for k=1:n;
 	plot(xS1,yS1,'r-',xS2,yS2,'b-',xS3,yS3,'g-',x,y,'ko','LineWidth',2)
 	legend('C1 cubic','Natural','parabolic')
 end
+
+% base de splines
+x = [0,1,2,3,4]; y = [0,0,1,0,0];
+dS = [0,0,0,0,0];
+[xS1,yS1,coeficients]=dibuixaSplineCubic(x,y,dS,[]);
+d2S = calculaCurvaturesSplineNatural(x,y);
+[xS2,yS2,coeficients]=dibuixaSplineCubic(x,y,[],d2S);
+[xS3,yS3,coeficients]=dibuixaSplineParabolicC1(x,y);
+
+subplot(2,3,1);
+plot(xS1,yS1,'r-',x,y,'ko','LineWidth',2)
+title('Cubic C1');
+subplot(2,3,2);
+plot(xS2,yS2,'b-',x,y,'ko','LineWidth',2)
+title('Natural');
+subplot(2,3,3);
+plot(xS3,yS3,'g-',x,y,'ko','LineWidth',2)
+title('Parabolic C1');
+
+y = [0,0,0,0,0]; dS = [0,0,1,0,0];
+[xS1,yS1,coeficients]=dibuixaSplineCubic(x,y,dS,[]);
+d2S = calculaCurvaturesSplineNatural(x,y);
+
+[xS3,yS3,coeficients]=dibuixaSplineParabolicC1(x,y,1);
+subplot(2,3,4);
+plot(xS1,yS1,'b-',x,y,'ko','LineWidth',2)
+subplot(2,3,6);
+plot(xS3,yS3,'g-',x,y,'ko','LineWidth',2)

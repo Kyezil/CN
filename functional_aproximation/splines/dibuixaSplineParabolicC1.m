@@ -1,7 +1,8 @@
-function [xd, yd, coeficients] = dibuixaSplineParabolicC1(x,y)
+function [xd, yd, coeficients] = dibuixaSplineParabolicC1(x,y, df = 0)
 	% Funció per dibuixar un parabòlic C1
 	% x  : coordenades dels punts base
 	% y  : valors de la funció als punts base
+	% df : valor de derivada de f en punt x0
 	%
 	% Es pot dibuixar amb
 	%  plot(xd,yd)
@@ -9,7 +10,6 @@ function [xd, yd, coeficients] = dibuixaSplineParabolicC1(x,y)
 	x01 = [0:1/20:1]; % 20 subintervals
 	h = x(2:end) - x(1:end-1);
 	t = y(2:end) - y(1:end-1);
-	df = 0; % valor de la primera derivada
 	for i = 1:length(x)-1
 		a = (t(i) - df*h(i))/h(i)^2;
 		b = df;
