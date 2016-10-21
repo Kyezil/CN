@@ -1,4 +1,4 @@
-function [xd,yd,coeficients]=splineCubic(x,S,dS,d2S)
+function [xd,yd,coeficients]=dibuixaSplineCubic(x,S,dS,d2S)
 % [xd,yd,coeficients]=dibuixaSplineCubic(x,S,dS,d2S)
 %
 % Funció per dibuixar un spline cúbic C2
