@@ -39,11 +39,11 @@ coeficients
 figure(1)
 plot(xS1,yS1,'r-',xS2,yS2,'b-',x,y,'ko','LineWidth',2)
 legend('C1 cubic','Natural')
-% 
-% %Spline parabolic C1 (recurrent)
-% [xS3,yS3,coeficients]=dibuixaSplineC1Parabolic(x,y);
-% coeficients
-% figure(1)
-% plot(xS1,yS1,'r-',xS2,yS2,'b-',xS3,yS3,'g-',x,y,'ko','LineWidth',2)
-% legend('C1 cubic','Natural','parabolic')
+
+%Spline parabolic C1 (recurrent)
+[xS3,yS3,coeficients]=dibuixaSplineParabolicC1(x,y);
+coeficients
+figure(1)
+plot(xS1,yS1,'r-',xS2,yS2,'b-',xS3,yS3,'g-',x,y,'ko','LineWidth',2)
+legend('C1 cubic','Natural','parabolic')
 
