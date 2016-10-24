@@ -9,7 +9,11 @@ function [errors, sols] = newton_raphson(x0, f, df, niter = 10, tol = 1e-15, sil
   for k = 1:niter
     dx = -df(x0)\f(x0);
     x1 = x0 + dx;
-    r = norm(x0 - x1)/norm(x1);
+    nx1 = norm(x1);
+    if (nx1 < eps) 
+    	nx1 = eps;
+    endif
+    r = norm(x0 - x1)/nx1;
     errors = [ errors r];
     sols = [ sols x1 ];
     if !silent
