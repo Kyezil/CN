@@ -25,10 +25,10 @@ ylabel('log(err relatiu)');
 legend('Newton', 'Broyden');
 
 % evolucio amb velocitat de angular
-function sols = evolucio(a,b,n)
-	k = linspace(sqrt(a),sqrt(b),n) .^ 2;
+function [xd, yd] = evolucio()
+	k = [0, logspace(log10(1),log10(5),20), linspace(6,20,10)];
 	sols = [];
-	for i = 1:n
+	for i = 1:length(k)
 		[err, sol] = newton_raphson([1,1]', @(x) f(x, k(i)), @(x) df(x, k(i)), 30, 1e-15, true);
 		sols(:,end+1) = sol(:, end);
 	endfor
@@ -37,6 +37,12 @@ function sols = evolucio(a,b,n)
 	xlabel('valor de LW/g');
 	ylabel('solucio');
 	legend('theta1', 'theta2');
+	xd = k; yd = sols;
 endfunction
 
-evolucio(1,20,10);
+[xd, yd] = evolucio();
+% save
+% A = [xd; yd(1,:)]';
+% B = [xd; yd(2,:)]';
+% save p2theta1.dat -ascii A
+% save p2theta2.dat -ascii B
