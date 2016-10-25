@@ -3,6 +3,7 @@ source('extensiop2_f.m');
 
 theta0 = [1,1,1]';
 % resol amb Newton per k = 2
+disp('Extensio a tres varetes del problema 2');
 disp('Resolució del sistema amb Newton, aprox inicial [1,1,1]');
 [errs, sols] = newton_raphson(theta0, @(t) f3(t, 2), @(t) df3(t, 2), 100, 1e-15, false);
 disp('Solució Newton:');
@@ -20,20 +21,26 @@ xlabel('iteració');
 ylabel('log(err relatiu)');
 legend('Newton', 'Broyden');
 
-% evolucio amb velocitat de angular creixent (picarse be)!!!!!!!!!!!!!!!!!!!!!!!!
-function sols = evolucio2(a,b,n)
-	k = linspace(sqrt(a),sqrt(b),n) .^ 2;
+% evolucio amb velocitat de angular creixent
+function [xd, yd] = evolucio()
+	k = [0, logspace(log10(1),log10(5),20), linspace(6,20,10)];
 	sols = [];
-	for i = 1:n
-		[err, sol] = newton_raphson([1,1,1]', @(x) f3(x, k(i), k(i)), @(x) df3(x, k(i), k(i)), 30, 1e-15, true);
+	for i = 1:length(k)
+		[err, sol] = newton_raphson([1,1,1]', @(x) f3(x, k(i)), @(x) df3(x, k(i)), 30, 1e-15, true);
 		sols(:,end+1) = sol(:, end);
 	endfor
-	plot(k, sols(1,:), 'r', k, sols(2,:), 'b', sols(3,:), 'g');
+	plot(k, sols(1,:), 'r', k, sols(2,:), 'b', k, sols(3, :), 'g');
 	title('Evolucio de la solucio segons W');
 	xlabel('valor de LW/g');
 	ylabel('solucio');
-	legend('theta1', 'theta2','theta3');
+	legend('theta1', 'theta2', 'theta3');
+	xd = k; yd = sols;
 endfunction
 
-%evolucio2(1,20,10);
+[xd, yd] = evolucio();
+% save
+% A = [xd; yd(1,:)]';
+% B = [xd; yd(2,:)]';
+% save p2theta1.dat -ascii A
+% save p2theta2.dat -ascii B
 
