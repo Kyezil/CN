@@ -39,8 +39,10 @@ endfunction
 
 [xd, yd] = evolucio();
 % save
-% A = [xd; yd(1,:)]';
-% B = [xd; yd(2,:)]';
-% save p2theta1.dat -ascii A
-% save p2theta2.dat -ascii B
+%A = [xd; yd(1,:)]';
+%B = [xd; yd(2,:)]';
+%C = [xd; yd(3,:)]';
+%save p2xtheta1.dat -ascii A
+%save p2xtheta2.dat -ascii B
+%save p2xtheta3.dat -ascii C
 
