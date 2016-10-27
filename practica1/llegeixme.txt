@@ -1,0 +1,4 @@
+Pràctica CN
+Louis Clergue, Victor Ruiz
+
+Per a executar els programes, per a cada problema hi ha una carpeta amb un fitxer problemaX.m (excepte el 3)
