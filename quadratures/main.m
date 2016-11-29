@@ -39,16 +39,31 @@ for k=1:5
        
 end
 nPuntsTrap = 2*2.^[1:5]+1;
-nPuntsSimp = 2*2.^[1:5]+1;
-nPuntsGauss2 = 2*2.^[1:5];
-nPuntsGauss3 = 3*2.^[1:5];
-%ajustTrap = polyfit(log10(nPuntsTrap(end-2:end)),log10(errorTrap(end-2:end)),1);
+nPuntsSimp = 3*2.^[1:5]+1;
+nPuntsGauss2 = 4*2.^[1:5];
+nPuntsGauss3 = 6*2.^[1:5];
 
 %Grafica errors
 figure(1) 
-plot(log10(nPuntsTrap),log10(errorTrap),'-o', ) 
+plot(log10(nPuntsTrap),log10(error(1,:)),'-o') 
 xlabel('log_{10}(#punts)'), ylabel('log_{10}(error)')
 legend('Composta de trapezi')
 
+figure(2) 
+plot(log10(nPuntsSimp),log10(error(2,:)),'-o') 
+xlabel('log_{10}(#punts)'), ylabel('log_{10}(error)')
+legend('Composta de Simpson')
+
+figure(3) 
+plot(log10(nPuntsGauss2),log10(error(3,:)),'-o') 
+xlabel('log_{10}(#punts)'), ylabel('log_{10}(error)')
+legend('Composta de Gauss n = 2')
+
+figure(4) 
+plot(log10(nPuntsGauss3),log10(error(4,:)),'-o') 
+xlabel('log_{10}(#punts)'), ylabel('log_{10}(error)')
+legend('Composta de Gauss n = 3')
+
+%ajustTrap = polyfit(log10(nPuntsTrap(end-2:end)),log10(errorTrap(end-2:end)),1);
 %fprintf('\nPendent 3 darrers punts:\n Composta trapezi: %0.1f \n',ajustTrap(1))
 
