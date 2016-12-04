@@ -28,13 +28,13 @@ f=@(x,y) -y/(10*x+1); a=0; b=2;  y0=1;
 
 %Solucio amb funcions intrinseques de Matlab
 [x,Y]=ode45(f,[a,b],y0);
-figure(1), plot(x,Y,'-*'), title('ode45')
+%figure(1), plot(x,Y,'-*'), title('ode45')
 
 %Solucio amb el metode d'Euler
  h=0.1;
  npassos=ceil((b-a)/h); 
  [x2,Y2]=eulerend(f,[a,b],y0,npassos);
- figure(2), plot(x2,Y2,'-*'), title('Euler')
+ %figure(2), plot(x2,Y2,'-*'), title('Euler')
  
  err = [];
  H = 0.1 * 0.5 .^(0:5);
@@ -43,5 +43,33 @@ figure(1), plot(x,Y,'-*'), title('ode45')
      [xh,Yh]=eulerend(f,[a,b],y0,npassos);
      err(end+1) = abs(Yh(end) - Y(end));
  end
- figure(3), plot(log10(H), log10(err)), title('Error euler x=2')
+ %figure(3), plot(log10(H), log10(err)), title('Error euler x=2')
+ 
+ %Solu segon sistema
+ h = 0.1;
+ a = 0; b = 2*pi;
+ f = @(x, y) [0, 1; -1 0]*y;
+ y0 = [1; 0];
+             
 
+[x,Y]=ode45(f,[a,b],y0);
+figure(4), plot(x,Y,'-*'), title('ode45, 2')
+
+ npassos=ceil((b-a)/h); 
+ [x2,Y2]=eulerend(f,[a,b],y0,npassos);
+ figure(5), plot(x2,Y2,'-*'), title('Euler2')
+ 
+ h = 0.01;
+ a = 0; b = 50*pi;
+ f = @(x, y) [0, 1; -1 0]*y;
+ y0 = [1; 0];
+             
+ npassos=ceil((b-a)/h); 
+ [x2,Y2]=eulerend(f,[a,b],y0,npassos);
+ figure(6), plot(x2,Y2,'-*'), title('Euler2')
+ 
+ 
+ %npassos=ceil((b-a)/h); 
+% [x2,Y2]=eulerdar(f,[a,b],y0,npassos);
+ %figure(7), plot(x2,Y2,'-*'), title('Eulerdar')
+ 
