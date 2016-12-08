@@ -25,10 +25,19 @@ function res = df(c, r, x)
   end
 end
 
-r = @(c) mean(err(c, [X;Y]));
-g = @(x) f(x, r(x) , [X;Y]);
-dg = @(x) df(x, r(x), [X;Y]);
+r = @(c) mean(err(c, [X;Y])); % radi en funcio del centre
+g = @(x) f(x, r(x) , [X;Y]); %  funcio que mesura l'error
+
+dg = @(x) df(x, r(x), [X;Y]); % gradient de g
 %dg = @(x) numericalDerivative(g, x);
-x0 = mean([X;Y], 2);
-Hg = numericalHessian(g, x0);
-z = broyden(x0, Hg, dg);
+
+x0 = mean([X;Y], 2); % punt inicial aproximant de la solucio
+
+metode = 2; % canvi de metode
+if (metode == 1)
+  Hg = Jacobian(dg, x0); % aproximacio inicial de la derivada
+  z = broyden(x0, Hg, dg);
+else
+  ddg = @(x) Jacobian(dg, x);
+  z = newton_raphson(x0, dg, ddg, 20);
+end
