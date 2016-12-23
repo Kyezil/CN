@@ -1,15 +1,15 @@
-function problema1()
+function problema1(splines = 1)
 % problema 1 de la practica 2 de calcul numeric
 
   f = @(x) sin(x) + x ./ 4;
   x = [0,1,3,4,5,7];
   
-  splines = 0; % 0 for lineals, 1 for cubics
+  % splines  0 for lineals, 1 for cubics
 
   if (splines == 0)
     % splines lineals C0
     disp('Calcul dels coefficients per splines lineals');
-    coeffs = leastSquareSplineLinealC0(f, x);
+    [coeffs,err] = leastSquareSplineLinealC0(f, x);
     % plot
     y = zeros(1,length(x));
     for i = 1:length(x)
@@ -17,6 +17,7 @@ function problema1()
         y(i) += coeffs(j)*basisSplineC0(j, x, x(i));
       end
     end
+    err
     xx = linspace(x(1), x(end), 10*length(x));
     %plot de l'aproximacio per minims quadrats, de f i de l'interpolacio
     plot(x, y, "-bo", xx, f(xx), "r", x, f(x), "-o");
@@ -27,7 +28,7 @@ function problema1()
 %    end
   elseif (splines == 1)
     disp('Calcul dels coefficients per splines cubics');
-    coeffs = leastSquareSplineCubicC1(f, x);
+    [coeffs,err] = leastSquareSplineCubicC1(f, x);
     % plot
     factor = 10;
     xx = linspace(x(1), x(end), factor*length(x));
@@ -44,6 +45,7 @@ function problema1()
         y(i) += coeffs(j)*basisSplineCubicC1(j, x, x(i));
       end
     end
+    err
     % plot approx minims quadrats
     plot(x, y, "bo",xx, yy, "b-", xx, f(xx), "r");
     % info for latex
@@ -58,7 +60,7 @@ function problema1()
   end
 end
 
-function [coeffs] = leastSquareSplineLinealC0(f, x)
+function [coeffs,err] = leastSquareSplineLinealC0(f, x)
   % f function to project
   % x 1xN base points
   % coeffs 1xN coef for each base of splines (basis has size n)
@@ -71,18 +73,19 @@ function [coeffs] = leastSquareSplineLinealC0(f, x)
   b = zeros(1,n-1); %<Ni-1,Ni>
   a(1) = quad(@(z) basisSplineC0(1, x, z) ^ 2, x(1), x(2));
   for i=2:n
-    a(i) = quad(@(z) basisSplineC0(i, x, z) ^ 2, x(1), x(n));
-    b(i-1) = quad(@(z) basisSplineC0(i-1, x, z)*basisSplineC0(i, x, z), x(1), x(n));
+    a(i) = quad(@(z) basisSplineC0(i, x, z) ^ 2, x(max(1,i-1)), x(min(n,i+1)));
+    b(i-1) = quad(@(z) basisSplineC0(i-1, x, z)*basisSplineC0(i, x, z), x(max(1,i-2)), x(min(n,i+1)));
   end
   % <Ni,f>
   c = zeros(1,n);
   for i=1:n
-    c(i) = quad(@(z) basisSplineC0(i, x, z)*f(z), x(1), x(n));
+    c(i) = quad(@(z) basisSplineC0(i, x, z)*f(z), x(max(1,i-1)), x(min(n,i+1)));
   end
   coeffs = solveTridiag(b,a,b,c);
+  err = dot(coeffs, c);
 end
 
-function [coeffs] = leastSquareSplineCubicC1(f,x)
+function [coeffs,err] = leastSquareSplineCubicC1(f,x)
 % f function to project
 % x 1xN base points
 % coeffs 1x2N for each base of splines (basis has size 2n)
@@ -94,12 +97,15 @@ function [coeffs] = leastSquareSplineCubicC1(f,x)
   % compute A (pentadiagonal matrix)
   basis = @(k,z) basisSplineCubicC1(k, x, z);
   for i = 1:2*n
+    ki = idivide(i-1,2) + 1; % position of basis_i in point vector
     for j = i:min(i+3, 2*n)
-      A(i,j) = A(j,i) = quad(@(z) basis(i,z)*basis(j,z), x(1), x(n));  
+      kj = idivide(j-1,2) + 1; % position of basis_j in point vector
+      A(i,j) = A(j,i) = quad(@(z) basis(i,z)*basis(j,z), x(max(1,ki-1)), x(min(n,kj+1)));  
     end
     % compute b
-    b(i) = quad(@(z) basis(i,z)*f(z), x(1), x(n));
+    b(i) = quad(@(z) basis(i,z)*f(z), x(max(1,ki-1)), x(min(n,ki+1)));
   end    
   % solve A*coeffs = b
   coeffs = A\b';
+  err = dot(coeffs, b);
 end
