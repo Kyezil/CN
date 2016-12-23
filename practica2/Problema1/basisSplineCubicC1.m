@@ -5,8 +5,8 @@ function y = basisSplineCubicC1(n, p, z)
 % z 1x? values between p
 % for the points p at the point x
   m = length(p);
-  type = idivide(n-1,m); % 0 or 1
-  k = mod(n-1,m) + 1; % in [1,m]
+  type = mod(n-1, 2); % 0 or 1
+  k = idivide(n-1,2) + 1; % in [1,m]
   y = zeros(1,length(z));
   for i=1:length(z)
     x = z(i);
@@ -30,7 +30,7 @@ end
 
 function y = basicSplineCubicC1(z, type)
 % return value of evaluating the basis in [-1,1]
-% type = 0,1
+% type = 0,1  0 => derivative 0   1 => values 0
   y = zeros(1,length(z));
   for i = 1:length(z)
     x = z(i);
