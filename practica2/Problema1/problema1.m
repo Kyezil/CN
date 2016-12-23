@@ -4,7 +4,7 @@ function problema1()
   f = @(x) sin(x) + x ./ 4;
   x = [0,1,3,4,5,7];
   
-  splines = 1; % 0 for lineals, 1 for cubics
+  splines = 0; % 0 for lineals, 1 for cubics
 
   if (splines == 0)
     % splines lineals C0
@@ -19,20 +19,42 @@ function problema1()
     end
     xx = linspace(x(1), x(end), 10*length(x));
     %plot de l'aproximacio per minims quadrats, de f i de l'interpolacio
-    plot(x, y, "-o", xx, f(xx), x, f(x), "-o");
+    plot(x, y, "-bo", xx, f(xx), "r", x, f(x), "-o");
+    % info for latex
+%    for i=1:length(x)
+    %  printf("(%d,%f)", x(i), y(i)); % least squares
+%      printf("(%d,%f)", x(i), f(x(i)));
+%    end
   elseif (splines == 1)
     disp('Calcul dels coefficients per splines cubics');
     coeffs = leastSquareSplineCubicC1(f, x);
     % plot
-    xx = linspace(x(1), x(end), 10*length(x));
-    y = zeros(1, length(xx));
+    factor = 10;
+    xx = linspace(x(1), x(end), factor*length(x));
+    yy = zeros(1, length(xx)); % thiner grain
+    y = zeros(1, length(x)); % base points
     for i = 1:length(xx)
       for j=1:length(coeffs)
-        y(i) += coeffs(j)*basisSplineCubicC1(j, x, xx(i));
+        yy(i) += coeffs(j)*basisSplineCubicC1(j, x, xx(i));
+      end
+    end
+    % get base points
+    for i = 1:length(x)
+      for j=1:length(coeffs)
+        y(i) += coeffs(j)*basisSplineCubicC1(j, x, x(i));
       end
     end
     % plot approx minims quadrats
-    plot(xx, y, "-o", xx, f(xx));
+    plot(x, y, "bo",xx, yy, "b-", xx, f(xx), "r");
+    % info for latex
+%    for i=1:length(x)
+    %  printf("(%d,%f)", x(i), y(i)); % least squares
+%    end
+%  interpolation
+% xf = linspace(0,7,50);
+% hermite = interp1(x, f(x), xf, f(xf));
+% Z(:,1) = xf; Z(:,2) = hermite;
+% save interpol.dat Z -ascii
   end
 end
 
