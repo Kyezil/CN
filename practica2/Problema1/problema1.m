@@ -18,30 +18,10 @@ function problema1()
   plot(x, y, "-o", xx, f(xx), x, f(x), "-o");
 end
 
-% basis of splines C0
-function y = basisSplineC0(n, p, x)
-% avalua l'element n-èssim de la base dels punts p en un valor x
-  if (n == 1)
-    if (x >= p(2) || x < p(1)) y = 0;
-    else y = (p(2)-x)/(p(2)-p(1));
-    end
-  elseif(n == length(p))
-    if (x <= p(end-1) || x > p(end)) y = 0;
-    else y = (p(end-1)-x)/(p(end-1)-p(end));
-    end
-  else
-    if (x <= p(n-1) || x >= p(n+1)) y = 0;
-    elseif (x <= p(n)) y = (x-p(n-1))/(p(n)-p(n-1));
-    else y = (x-p(n+1))/(p(n) - p(n+1));
-    end
-  end
-end
-
-% uses legendre polynomials 1,x basis orthogonal in -1,1 
 function [coeffs] = leastSquareSplineLinealC0(f, x)
   % f function to project
   % x 1xN base points
-  % coeffs 1xN for each interval of basis of splines
+  % coeffs 1xN coef for each base of splines (basis has size n)
 
   x = sort(x); % ensure points are sorted
   X = [];
@@ -62,4 +42,10 @@ function [coeffs] = leastSquareSplineLinealC0(f, x)
   end
   coeffs = solveTridiag(b,a,b,c);
 end
+
+function [coeffs] = leastSquareSplineCubicC1(f,x)
+% f function to project
+% x 1xN base points
+% coeffs 2xN for each base of splines (basis has size 2n)
+
 
