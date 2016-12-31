@@ -1,4 +1,4 @@
-function [errors, sols] = broyden(x0, S0, f, niter = 10, tol = 1e-15, silent = false)
+function [errors, sols] = broyden(x0, f, S0, niter = 10, tol = 1e-15, silent = false)
   % usa el metode de broyden per resoldre un sistema eq no lineal amb aprox inicial
   % [IN]  x0 aproximacio inicial de la solucio
   % [IN]  S0 aprox inicial de la jacobiana

@@ -22,13 +22,13 @@
 %    (absolutament) estable? 
 
 
-% Resolucio de la EDO dy/dx = -y/(10x+1) per x en (0,1) 
-% amb condicio inicial y(0)=1
-f=@(x,y) -y/(10*x+1); a=0; b=2;  y0=1;
+f=@(x,y) -y/(10*x+1); 
+a=0; 
+b=2;  y0=1;
 
 %Solucio amb funcions intrinseques de Matlab
 [x,Y]=ode45(f,[a,b],y0);
-%figure(1), plot(x,Y,'-*'), title('ode45')
+figure(1), plot(x,Y,'-*'), title('ode45')
 
 %Solucio amb el metode d'Euler
  h=0.1;
@@ -60,7 +60,7 @@ figure(4), plot(x,Y,'-*'), title('ode45, 2')
  figure(5), plot(x2,Y2,'-*'), title('Euler2')
  
  h = 0.01;
- a = 0; b = 50*pi;
+ a = 0; b = 5*pi;
  f = @(x, y) [0, 1; -1 0]*y;
  y0 = [1; 0];
              
@@ -69,7 +69,7 @@ figure(4), plot(x,Y,'-*'), title('ode45, 2')
  figure(6), plot(x2,Y2,'-*'), title('Euler2')
  
  
- %npassos=ceil((b-a)/h); 
-% [x2,Y2]=eulerdar(f,[a,b],y0,npassos);
- %figure(7), plot(x2,Y2,'-*'), title('Eulerdar')
+npassos=ceil((b-a)/h); 
+[x2,Y2]=eulerdar(f,[a,b],y0,npassos);
+figure(7), plot(x2,Y2,'-*'), title('Eulerdar')
  

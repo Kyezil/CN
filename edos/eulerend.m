@@ -7,7 +7,6 @@ function [x,Y] = eulerend(f, interv, y0, n)
     x = [a];
     for i = 2: n + 1
         x(i) = h.*(i - 1);
-        %y(i) = y(i - 1) + h*f(x(i), y(i - 1));
         y = y + h.*f(x(i), y);
         Y=[Y y];
     end
