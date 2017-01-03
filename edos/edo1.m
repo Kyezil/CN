@@ -6,13 +6,17 @@ y0=1;
 h=0.1;
  
 [x,Y]=ode45(f,[a,b],y0);
-figure(1), plot(x,Y,'-*'), title('ode45')
+%figure(1), plot(x,Y,'-*'), title('ode45')
 
 %Solucio amb el metode d'Euler endavant
  npassos=ceil((b-a)/h); 
  [x2,Y2]=eulerend(f,[a,b],y0,npassos);
- figure(2), plot(x2,Y2,'-*'), title('Euler end')
+ %figure(2), plot(x2,Y2,'-*'), title('Euler end')
  
+ plot(x,Y,'-*', x2, Y2, '-*');
+ legend('ode45', 'euler end');
+
+
  err = [];
  H = 0.1 * 0.5 .^(0:5);
  passos = [];
