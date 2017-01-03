@@ -16,4 +16,4 @@ npassos=ceil((b-a)/h);
 %figure(7), plot(x3,Y3,'-*'), title('Eulerdar')
 
 plot(x,Y(:,1),'-o', x2,Y2(:,1),'-o', x3,Y3(:,1),'-o');
-legend('ode45', 'backward euler', 'forward euler');
+legend('ode45', 'forward euler', 'backward euler');
