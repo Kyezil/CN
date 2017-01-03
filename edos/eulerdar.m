@@ -15,7 +15,7 @@ function [X,Y] = eulerdar(f, interv, y0, n)
     for i = 2: n + 1
         X(i) = a + h*(i-1); 
         g = @(t) t - Y(i - 1,:)' - h .* f(X(i),t')';
-        Y(i,:) = fsolve(g, Y(i-1, :));
+        Y(i,:) = fsolve(g, Y(i-1, :)');
     end
 end
 
