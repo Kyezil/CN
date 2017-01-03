@@ -22,7 +22,7 @@
 ## 
 ## If the value @var{x} is specified, the polynomial is also evaluated,
 ## otherwise just the return the coefficients of the polynomial are returned.
-## 
+## orthogonal with integral of exp(-x)*f(x)*g(x) in [0,Inf]
 ## This is NOT the generalized Laguerre polynomial.
 ##
 ## @end deftypefn

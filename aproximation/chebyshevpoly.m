@@ -20,7 +20,7 @@
 ## @var{order}. We calculate the Chebyshev polynomial using the recurrence
 ## relations Tn+1(x) = (2*x*Tn(x) - Tn-1(x)). The @var{kind} can be set to
 ## compute the first or second kind Chebyshev polynomial.
-##
+## orthogonal with integral of 1/(sqrt(1 - x^2) * f * g in [-1,1]
 ## If the value @var{x} is specified, the polynomial is evaluated at @var{x},
 ## otherwise just the coefficients of the polynomial are returned.
 ## 

@@ -22,7 +22,7 @@
 ## 
 ## If the value @var{x} is specified, the polynomial is also evaluated,
 ## otherwise just the return the coefficients of the polynomial are returned.
-## 
+## orthogonal in integral of f(x)*g(x) in [-1,1]
 ## This is NOT the generalized Legendre polynomial.
 ##
 ## @end deftypefn

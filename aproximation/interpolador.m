@@ -1,12 +1,12 @@
 function y = f(x)
   y = (x .^ 2 .* 25 .+ 1) .^ (-1);
-endfunction
+end
 
 a = -1;
 b = 1;
-n = 100;
+n = 10;
 xx = linspace(a, b, 100);
-yy = [f(xx)'];
+yy = f(xx)';
 
 x = linspace(a, b,n);
 y = f(x);
@@ -17,5 +17,5 @@ yy(:, end+1) = py;
   
 
 % plot runge1
-plot(xx, yy);
+plot(xx, yy, '-o');
 legend('f', 'p');
