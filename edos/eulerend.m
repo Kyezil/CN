@@ -1,5 +1,5 @@
 function [X,Y] = eulerend(f, interv, y0, n)
-% metode d'euler endavant y1 = y0 + h*f(x,y0)
+% metode d'euler endavant y1 = y0 + h*f(x0,y0)
 % f       funcio tal que dy/dx = f
 % interv  [a;b] interval on avaluar
 % y0      condicio inicial y(a) = y0
@@ -13,7 +13,7 @@ function [X,Y] = eulerend(f, interv, y0, n)
     Y(1,:) = y0; X(1) = a;
     for i = 2: n + 1
         X(i) = a + h*(i-1);
-        Y(i,:) = Y(i-1,:) +  h .* f(X(i), Y(i-1,:)')';
+        Y(i,:) = Y(i-1,:) +  h .* f(X(i-1), Y(i-1,:)')';
     end
 end
 
