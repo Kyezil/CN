@@ -1,0 +1,10 @@
+convergencia de quadratures
+
+newton cotes equiespaiats n+1 punts      (n parell = n+1) (n senar = n)     En = C*h^(n+2)*f^(n+1)(u)   E(n parell) = C*h^(n+3)*f^(n+2)(u)
+gauss-legendre amb n+1 punts             2n+1                               En C*f^(2n+2)(u)
+
+composta
+  trapezi  Em = -(b-a)^3/12m^2*f^2(u)
+  simpson  Em = -(b-a)^5/2880*m^4*f^4(u)
+  gauss-legednre Em,n = (b-a/2)^(2n+3)*C/m^(2n+2)*f(2n+2)(u)
+
